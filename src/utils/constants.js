@@ -28,10 +28,10 @@ const gradeToKR = {
 }
 
 const gradeToColor = {
-  1: 'bg-green-500',
-  2: 'bg-blue-500',
-  3: 'bg-red-300',
-  4: 'bg-red-500',
-  5: 'bg-red-800',
+  1: 'bg-green-200',
+  2: 'bg-blue-200',
+  3: 'bg-red-100',
+  4: 'bg-red-300',
+  5: 'bg-red-500',
 }
 export { SIDO_ARR, gradeToKR, gradeToColor }

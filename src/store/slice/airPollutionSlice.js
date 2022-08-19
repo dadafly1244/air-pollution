@@ -14,7 +14,7 @@ const initialState = {
 
 export const fetchAirPollution = createAsyncThunk(
   'fetchAirPollution',
-  async (sidoName) => {
+  async (sidoName, pageNo) => {
     try {
       const response = await axios.get(AIR_POLLUTION_URL, {
         params: {
@@ -22,7 +22,7 @@ export const fetchAirPollution = createAsyncThunk(
           serviceKey: import.meta.env.VITE_DE_KEY,
           returnType: 'json',
           numOfRows: '100',
-          pageNo: '2',
+          pageNo,
           ver: '1.0',
         },
       })
