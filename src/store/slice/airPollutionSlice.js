@@ -7,6 +7,7 @@ const AIR_POLLUTION_URL =
 const initialState = {
   airPollutionArr: [],
   myAreaAir: null,
+  filteredAirPollutionArr: [],
   favoritesAirPollutionArr: [],
   status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
   error: null,
@@ -14,7 +15,7 @@ const initialState = {
 
 export const fetchAirPollution = createAsyncThunk(
   'fetchAirPollution',
-  async (sidoName, pageNo) => {
+  async (sidoName) => {
     try {
       const response = await axios.get(AIR_POLLUTION_URL, {
         params: {
@@ -22,7 +23,7 @@ export const fetchAirPollution = createAsyncThunk(
           serviceKey: import.meta.env.VITE_DE_KEY,
           returnType: 'json',
           numOfRows: '100',
-          pageNo,
+          pageNo: '1',
           ver: '1.0',
         },
       })
@@ -69,6 +70,10 @@ const airPollutionSlice = createSlice({
         (element) => element.stationName !== action.payload,
       )
     },
+    //payload: airPollutiondata Array
+    setFilteredAirPollutionArr(state, action) {
+      state.filteredAirPollutionArr = action.payload
+    },
   },
   extraReducers(builder) {
     //비동기 액션에 대한 리듀서 // slice.actions에 생성되지 않음.
@@ -79,7 +84,7 @@ const airPollutionSlice = createSlice({
       })
       .addCase(fetchAirPollution.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        //성공했다면
+        console.log(action.payload)
         state.airPollutionArr = action.payload
         console.log(' state.airPollutionArr', state.airPollutionArr)
       })
@@ -99,6 +104,12 @@ export const getAirPollutionError = (state) => state.airPollution.error
 export const getFavorites = (state) =>
   state.airPollution.favoritesAirPollutionArr
 export const getMyAirPollution = (state) => state.airPollution.myAreaAir
+export const getFilteredAirPollutionData = (state) =>
+  state.airPollution.filteredAirPollutionArr
 
-export const { setMyArea, addFavorites, removeFavorite } =
-  airPollutionSlice.actions
+export const {
+  setMyArea,
+  addFavorites,
+  removeFavorite,
+  setFilteredAirPollutionArr,
+} = airPollutionSlice.actions
