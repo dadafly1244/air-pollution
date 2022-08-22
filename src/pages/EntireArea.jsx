@@ -34,7 +34,7 @@ function EntireArea() {
       <Card key={airPollution.stationName} item={airPollution} />
     ))
   } else if (airPollutionStatus === 'failed') {
-    content = <p>airPollutionError</p>
+    content = <p>{airPollutionError}</p>
   }
 
   return (

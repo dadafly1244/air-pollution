@@ -84,7 +84,6 @@ const airPollutionSlice = createSlice({
       })
       .addCase(fetchAirPollution.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        console.log(action.payload)
         state.airPollutionArr = action.payload
         console.log(' state.airPollutionArr', state.airPollutionArr)
       })
