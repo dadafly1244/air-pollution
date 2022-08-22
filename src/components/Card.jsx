@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { gradeToKR, gradeToColor } from '~/src/utils/constants'
+import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   addFavorites,
@@ -7,18 +8,37 @@ import {
 } from '~/src/store/slice/airPollutionSlice'
 
 //item
-function Card({ item }) {
+function Card({ item, isFavorite = false }) {
+  const location = useLocation()
+  const currentPath = location.pathname
   const dispatch = useDispatch()
   const [favorite, setFavorite] = useState(false)
 
-  const handleClickFavorite = (item) => {
-    if (favorite) {
-      dispatch(removeFavorite(item.stationName))
+  //처음 렌더링 될때 만약 favorites 페이지라면
+  useEffect(() => {
+    if (currentPath === '/favorites') {
+      setFavorite(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (item.isFavorite === true) {
+      setFavorite(true)
     } else {
-      dispatch(addFavorites(item))
+      setFavorite(false)
+    }
+  }, [item.isFavorite])
+
+  const handleClickFavorite = async (item) => {
+    if (favorite) {
+      await dispatch(removeFavorite(item.stationName))
+      console.log('삭제!!')
+    } else {
+      await dispatch(addFavorites(item))
     }
     setFavorite(!favorite)
   }
+
   return (
     <div className="m-2">
       <div
@@ -45,10 +65,10 @@ function Card({ item }) {
             'mb-2 text-center text-4xl font-bold tracking-tight text-gray-900 dark:text-white'
           }
         >
-          {gradeToKR[item.pm10Grade]}
+          {item.pm10Grade ? gradeToKR[item.pm10Grade] : '정보없음'}
         </h5>
         <p className="font-normal  text-center text-gray-700 dark:text-gray-400">
-          미세먼지 수치 : {item.pm10Value}
+          미세먼지 수치 : {item.pm10Value !== '-' ? item.pm10Value : '측정불가'}
         </p>
         <p className="font-normal  text-center text-gray-700 dark:text-gray-400">
           미세먼지 수치 : {item.dataTime}

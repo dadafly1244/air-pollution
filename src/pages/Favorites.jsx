@@ -27,6 +27,10 @@ function Favorites() {
     }
   }, [airPollutionStatus, dispatch])
 
+  useEffect(() => {
+    favoritesArr.map((element) => element.isFavorite)
+  }, [favoritesArr])
+
   let content
   if (airPollutionStatus === 'loading') {
     content = <Loader />

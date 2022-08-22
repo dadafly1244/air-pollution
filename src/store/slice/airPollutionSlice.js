@@ -52,6 +52,13 @@ const airPollutionSlice = createSlice({
     },
     //payload:airPollutiondata
     addFavorites(state, action) {
+      //이미 존재한다면 추가하지 않기
+      if (
+        state.favoritesAirPollutionArr.find(
+          (element) => element.stationName === action.payload.stationName,
+        )
+      )
+        return
       state.favoritesAirPollutionArr.push({
         ...action.payload,
         isFavorite: true,
