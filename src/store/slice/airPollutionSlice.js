@@ -92,6 +92,7 @@ const airPollutionSlice = createSlice({
       .addCase(fetchAirPollution.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.airPollutionArr = action.payload
+        state.myAreaAir = state.airPollutionArr[0]
         console.log(' state.airPollutionArr', state.airPollutionArr)
       })
       .addCase(fetchAirPollution.rejected, (state, action) => {

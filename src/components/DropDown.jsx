@@ -64,6 +64,7 @@ function DropDown() {
         onChange={handleSidoChange}
         name="sido"
         id="sido"
+        defaultValue={myAirPollution?.sidoName}
         className="z-10 w-20 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 text-center"
       >
         {SIDO_ARR.map((sido, index) => (
@@ -78,7 +79,12 @@ function DropDown() {
       {isSidoSeleted && (
         <div>
           <label htmlFor="gungu">군구</label>
-          <select id="gungu" name="gungu" onChange={handleGunguChange}>
+          <select
+            id="gungu"
+            name="gungu"
+            onChange={handleGunguChange}
+            defaultValue={myAirPollution?.stationName}
+          >
             <option key={'군구'}>군구</option>
             {allAirPollutions?.map((airPollutionData) => (
               <option key={airPollutionData.stationName}>
