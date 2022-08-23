@@ -43,17 +43,13 @@ function DropDown() {
       console.log(gun)
       await dispatch(setMyArea(e.currentTarget.value))
       console.log('군구allAirPollutions', allAirPollutions)
-      sisi = await allAirPollutions.filter(
-        (element) => element.stationName === gun,
-      )
-      console.log('sisi', sisi)
-      setFilteredAirPollutionArr(sisi)
+      // sisi = await allAirPollutions.filter(
+      //   (element) => element.stationName === gun,
+      // )
+      // console.log('sisi', sisi)
+      // setFilteredAirPollutionArr(sisi) //왜 state에 넣으면 한박자 느리게 들어가나요..? ㅠㅠ
     }
   }
-
-  useEffect(() => {
-    setFilteredGunguData(sisi)
-  }, [handleGunguChange])
 
   return (
     <div className="flex justify-center items-center m-2">

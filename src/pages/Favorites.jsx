@@ -29,37 +29,14 @@ function Favorites() {
     }
   }, [airPollutionStatus, dispatch])
 
-  // useEffect(() => {
-  //   favoritesArr.map((element) => element.isFavorite)
-  // }, [favoritesArr])
-
-  // useEffect(() => {}, [content])
-
-  // if (airPollutionStatus === 'loading') {
-  //   useContent()
-  // } else if (airPollutionStatus === 'succeeded') {
-  //   const concontent = favoritesArr
-  //     ? favoritesArr?.map((airPollution) => (
-  //         <Card key={airPollution.stationName} item={airPollution} />
-  //       ))
-  //     : allAirPollutions?.map((airPollution) => (
-  //         <Card key={airPollution.stationName} item={airPollution} />
-  //       ))
-  //   useContent(concontent)
-  // } else if (airPollutionStatus === 'failed') {
-  //   useContent(<p>{airPollutionError}</p>)
-  // }
-  // else if (myAirPollution && airPollutionStatus === 'succeeded') {
-  //   let filteredAirPollution = allAirPollutions.filter(myAirPollution)
-  //   content = allAirPollutions?.map
-  // }
   return (
     <div>
       <DropDown />
       <section>
-        <h2>전체 시도보기</h2>
-        {content}
+        <h2>즐겨찾기</h2>
+        {/* <div className='grid grid-cols-4 gap-4' >
 
+        </div> */}
         {airPollutionStatus === 'loading' && <Loader />}
         {(airPollutionStatus === 'succeeded' &&
           favoritesArr &&

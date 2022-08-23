@@ -26,29 +26,21 @@ function MyArea() {
     }
   }, [airPollutionStatus, dispatch])
 
-  let content
-  if (airPollutionStatus === 'loading') {
-    content = <Loader />
-  } else if (airPollutionStatus === 'succeeded') {
-    content = myAirPollution ? (
-      <Card key={myAirPollution.stationName} item={myAirPollution} />
-    ) : (
-      allAirPollutions?.map((airPollution) => (
-        <Card key={airPollution.stationName} item={airPollution} />
-      ))
-    )
-  } else if (airPollutionStatus === 'failed') {
-    content = <p>{airPollutionError}</p>
-  } else if (myAirPollution && airPollutionStatus === 'succeeded') {
-    let filteredAirPollution = allAirPollutions.filter(myAirPollution)
-    content = allAirPollutions?.map
-  }
   return (
     <div>
       <DropDown />
       <section>
-        <h2>전체 시도보기</h2>
-        {content}
+        <h2>내 지역보기</h2>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          {airPollutionStatus === 'loading' && <Loader />}
+          {(airPollutionStatus === 'succeeded' && myAirPollution && (
+            <Card key={myAirPollution.stationName} item={myAirPollution} />
+          )) ||
+            allAirPollutions?.map((airPollution) => (
+              <Card key={airPollution.stationName} item={airPollution} />
+            ))}
+          {airPollutionStatus === 'failed' && <p>{airPollutionError}</p>}
+        </div>
       </section>
     </div>
   )

@@ -26,23 +26,19 @@ function EntireArea() {
     }
   }, [airPollutionStatus, dispatch])
 
-  let content
-  if (airPollutionStatus === 'loading') {
-    content = <Loader />
-  } else if (airPollutionStatus === 'succeeded') {
-    content = allAirPollutions?.map((airPollution) => (
-      <Card key={airPollution.stationName} item={airPollution} />
-    ))
-  } else if (airPollutionStatus === 'failed') {
-    content = <p>{airPollutionError}</p>
-  }
-
   return (
     <div>
       <DropDown />
       <section>
         <h2>전체 시도보기</h2>
-        {content}
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          {airPollutionStatus === 'loading' && <Loader />}
+          {airPollutionStatus === 'succeeded' &&
+            allAirPollutions?.map((airPollution) => (
+              <Card key={airPollution.stationName} item={airPollution} />
+            ))}
+          {airPollutionStatus === 'failed' && <p>{airPollutionError}</p>}
+        </div>
       </section>
     </div>
   )
